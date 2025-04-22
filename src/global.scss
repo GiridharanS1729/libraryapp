@@ -1,0 +1,17 @@
+.pag-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        color: #fff;
+        background-color: #00f;
+    }
+}
+.brand-logo{
+    margin-right: 25rem;
+    & *{
+        align-items:start;
+    }
+}
