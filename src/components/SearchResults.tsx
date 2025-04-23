@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RootState } from '../redux/store'
-import { Card, Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import BookCard from './BookCard'
 
 const SearchResults: React.FC = () => {
     const location = useLocation()
-    const navigate = useNavigate()
     const query = new URLSearchParams(location.search).get('q')?.toLowerCase() || ''
     const books = useSelector((state: RootState) => state.books.books)
     const [filtered, setFiltered] = useState(books)

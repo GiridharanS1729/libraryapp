@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Book } from '../redux/booksSlice';
+// import { Book } from '../redux/booksSlice';
+import { Book } from '../data';
 import CButton from '../ReuseC/CButton';
 
 interface BookCardProps {
@@ -9,7 +10,7 @@ interface BookCardProps {
     onViewDetails?: (bookId: number) => void;
 }
 
-const BookCard: React.FC<BookCardProps> = ({ book, onViewDetails }) => {
+const BookCard: React.FC<BookCardProps> = ({ book }) => {
 
     const formatDate = (dateString: string) => {
         try {
@@ -84,9 +85,9 @@ const BookCard: React.FC<BookCardProps> = ({ book, onViewDetails }) => {
                             </Card.Text>
                         )}
                 <div className="mt-auto d-flex justify-content-between align-items-center">
-                    <CButton clas="badge bg-info" label={`${book.pageCount != "" ? book.pageCount:1} pages`} />
+                    <CButton clas="badge bg-info" label={`${book.pageCount != 0 ? book.pageCount:1} pages`} />
                     <Button
-                        as={Link}
+                        as={Link as any}
                         to={`/book/${book._id}`}
                         variant="outline-primary"
                         size="sm"

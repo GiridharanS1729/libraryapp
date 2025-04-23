@@ -98,7 +98,7 @@ const GlobalSearch: React.FC = () => {
                     variant="outline-secondary"
                     onClick={navigateToAdvancedSearch}
                     title="Advanced Search"
-                    as={Link}
+                    as={Link as any}
                     to="/advanced"
                 >
                     <i className="bi bi-filter">Advanced </i>
