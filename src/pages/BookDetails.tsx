@@ -24,7 +24,7 @@ export default function BookDetails() {
                     <Row>
                         <Col md={4} className="text-center mb-3 mb-md-0">
                             <img
-                                src={book.thumbnailUrl}
+                                src={book.thumbnailUrl || "/default.png"}
                                 alt={book.title}
                                 className="img-fluid rounded"
                                 style={{ maxHeight: '400px', height: '80vh' }}

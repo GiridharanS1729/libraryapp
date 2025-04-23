@@ -1,4 +1,3 @@
-// src/redux/booksSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { books as initialBooks, Book } from '../data';
 
@@ -6,8 +5,11 @@ interface BooksState {
     books: Book[];
 }
 
+const storedBooks = localStorage.getItem("books");
+const parsedBooks = storedBooks ? JSON.parse(storedBooks) : [];
+
 const initialState: BooksState = {
-    books: initialBooks,
+    books: [...parsedBooks,...initialBooks],
 };
 
 const booksSlice = createSlice({
@@ -63,7 +65,7 @@ const booksSlice = createSlice({
                     b.pageCount <= pageCountMax
                 )
             })
-        
+
         }
     },
 });

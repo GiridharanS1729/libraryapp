@@ -37,7 +37,7 @@ export default function BookForm({ editId }: BookFormProps) {
         description: '',
         thumbnail: '',
         categories: 'General',
-        pageCount: 100
+        pageCount: 1
     });
 
     const [errors, setErrors] = useState<FormErrors>({});
@@ -90,10 +90,10 @@ export default function BookForm({ editId }: BookFormProps) {
         if (!validateForm()) {
             return;
         }
-
+        const randid = Math.floor(Math.random() * 10000)
         const payload = {
-            _id: editId,
-            id: editId,
+            _id: editId || randid,
+            id: editId || randid,
             title: form.title,
             authors: form.authors.split(',').map(a => a.trim()),
             longDescription: form.description,
@@ -104,22 +104,26 @@ export default function BookForm({ editId }: BookFormProps) {
             status: 'PUBLISH',
             isbn: editBookData?.isbn || `ISBN-${Date.now().toString().substring(7)}`,
             publishedDate: editBookData?.publishedDate || { $date: new Date().toISOString() }
-        };
-
-        if (editId) {
-            dispatch(editBook(payload));
-        } else {
-            dispatch(addBook(payload));
         }
-
+        if (editId) {
+            dispatch(editBook(payload))
+        } else {
+            const existing = JSON.parse(localStorage.getItem("books") || "null")
+            if (existing) {
+                const updated = [payload,...existing]
+                localStorage.setItem("books", JSON.stringify(updated))
+                // dispatch(addBook((updated)))
+            } else {
+                localStorage.setItem("books", JSON.stringify([payload]))
+            }
+            dispatch(addBook(payload))
+        }
 
         nav('/');
     };
 
     const handleInputChange = (field: keyof FormState, value: string | number) => {
         setForm({ ...form, [field]: value });
-
-
         if (errors[field as keyof FormErrors]) {
             setErrors({ ...errors, [field]: undefined });
         }

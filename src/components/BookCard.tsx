@@ -51,14 +51,15 @@ const BookCard: React.FC<BookCardProps> = ({ book, onViewDetails }) => {
             <Card.Body className="d-flex flex-column">
                 <Card.Title className="text-truncate">{book.title}</Card.Title>
                 <Card.Text className="text-muted mb-1 small">
-                    {book.authors.join(', ')}
+                    {book.authors && book.authors.length > 1 ? book.authors.join(', ') : book.authors} 
+                    
                 </Card.Text>
                 <Card.Text className="mb-1 small">
                     <span className="text-muted">Published: </span>
-                    {formatDate(book.publishedDate.$date)}
+                    {formatDate(book.publishedDate?.$date)}
                 </Card.Text>
                 <div className="mb-2">
-                    {book.categories.map((category: any, index: any) => (
+                    {book.categories?.map((category: any, index: any) => (
                         <CButton
                             clas="badge bg-light text-dark me-1 mb-1 ctg"
                             key={index}
@@ -83,7 +84,7 @@ const BookCard: React.FC<BookCardProps> = ({ book, onViewDetails }) => {
                             </Card.Text>
                         )}
                 <div className="mt-auto d-flex justify-content-between align-items-center">
-                    <CButton clas="badge bg-info" label={`${book.pageCount} pages`} />
+                    <CButton clas="badge bg-info" label={`${book.pageCount != "" ? book.pageCount:1} pages`} />
                     <Button
                         as={Link}
                         to={`/book/${book._id}`}

@@ -7,6 +7,7 @@ import EditBook from './pages/EditBook'
 import AdvancedSearch from './components/AdvancedSearch'
 import AdvancedSearchRes from './components/AdvancedSearchRes'
 import NavBar from './components/NavBar'
+import SearchResults from './components/SearchResults'
 
 export default function App() {
   return (
@@ -16,11 +17,12 @@ export default function App() {
       <Container className="mt-4">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/advanced" element={<AdvancedSearch />} />
-          <Route path="/advanced-search" element={<AdvancedSearchRes />} />
           <Route path="/add" element={<AddBook />} />
           <Route path="/book/:id" element={<BookDetails />} />
           <Route path="/edit/:id" element={<EditBook />} />
+          <Route path="/search" element={<SearchResults />} />
+          <Route path="/advanced" element={<AdvancedSearch />} />
+          <Route path="/advanced-search" element={<AdvancedSearchRes />} />
         </Routes>
       </Container>
     </Router>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Form, InputGroup, Button, Dropdown } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { Form, InputGroup, Button } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { RootState } from '../redux/store';
 import { Search } from 'react-bootstrap-icons';
@@ -19,7 +19,7 @@ const GlobalSearch: React.FC = () => {
     const searchRef = useRef<HTMLDivElement>(null);
     const books = useSelector((state: RootState) => state.books.books);
     useEffect(() => {
-        if (searchTerm.trim().length > 1) {
+        if (searchTerm.trim().length > 0) {
             setIsSearching(true);
             const timer = setTimeout(() => {
                 const filteredBooks = books.filter(book => {
