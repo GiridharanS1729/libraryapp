@@ -2,7 +2,8 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../redux/store'
 import { deleteBook } from '../redux/booksSlice'
-import { Button } from 'react-bootstrap'
+import { Container, Row, Col, Card } from 'react-bootstrap'
+import BButton from '../ReuseC/BButton'
 
 export default function BookDetails() {
     const { id } = useParams()
@@ -10,19 +11,55 @@ export default function BookDetails() {
     const dispatch = useDispatch()
     const book = useSelector((s: RootState) => s.books.books.find(b => b.id == id))
 
-    if (!book) return <div>Book not found</div>
+    if (!book) return (
+        <Container className="mt-5 text-center">
+            <div className="alert alert-warning">Book not found</div>
+        </Container>
+    )
 
     return (
-        <div>
-            <h2>{book.title}</h2>
-            <img src={book.thumbnailUrl} alt={book.title} />
-            <p>{book.longDescription}</p>
-            <Button variant="secondary" onClick={() => nav('/')}>Back</Button>{' '}
-            <Button variant="primary" onClick={() => nav(`/edit/${book.id}`)}>Edit</Button>{' '}
-            <Button variant="danger" onClick={() => {
-                dispatch(deleteBook(book._id))
-                nav('/')
-            }}>Delete</Button>
-        </div>
+        <Container className="py-4">
+            <Card className="shadow-sm">
+                <Card.Body>
+                    <Row>
+                        <Col md={4} className="text-center mb-3 mb-md-0">
+                            <img
+                                src={book.thumbnailUrl}
+                                alt={book.title}
+                                className="img-fluid rounded"
+                                style={{ maxHeight: '400px', height: '80vh' }}
+                            />
+                        </Col>
+                        <Col md={8}>
+                            <Card.Title as="h2" className="mb-3">{book.title}</Card.Title>
+                            <Card.Text className="text-muted mb-4 bdl pr-2">{book.longDescription}</Card.Text>
+
+                            <div className="d-flex gap-2">
+                                <BButton
+                                    variant="outline-secondary"
+                                    label="Back"
+                                    onClick={() => nav('/')}
+                                />
+
+                                <BButton
+                                    variant="primary"
+                                    label="Edit"
+                                    onClick={() => nav(`/edit/${book.id}`)}
+                                />
+
+                                <BButton
+                                    variant="danger"
+                                    label="Delete"
+                                    onClick={() => {
+                                        dispatch(deleteBook(book._id))
+                                        nav('/')
+                                    }}
+                                />
+                            </div>
+                        </Col>
+                    </Row>
+                </Card.Body>
+            </Card>
+        </Container>
     )
 }

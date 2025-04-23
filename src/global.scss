@@ -9,9 +9,35 @@
         background-color: #00f;
     }
 }
-.brand-logo{
+
+.brand-logo {
     margin-right: 25rem;
-    & *{
-        align-items:start;
+
+    & * {
+        align-items: start;
     }
+}
+
+.ctg {
+    border: 1px solid #000;
+}
+
+.b-img {
+    transition: all 0.3s;
+}
+
+.b-img:hover {
+    border-radius: 10px;
+    transform: scale(1.05);
+}
+
+.bdl {
+    padding-right: 20px;
+    text-align: justify;
+}
+.det-btn{
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: 700;
+    font-variant:small-caps;
 }

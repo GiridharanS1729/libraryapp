@@ -29,7 +29,7 @@ const AdvancedSearchRes = () => {
     }, [location.search])
 
 
-    // const books = useSelector((s: RootState) => s.books.books)
+
     const [page, setPage] = useState(1)
     const perPage = 8
     const totalPages = Math.ceil(books.length / perPage)

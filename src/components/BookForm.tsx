@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Card, Row, Col, Alert } from 'react-bootstrap';
+import { Form, Button, Card, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBook, editBook } from '../redux/booksSlice';
 import { RootState } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
 
 interface BookFormProps {
-    editId?: string;
+    editId?: number;
 }
 
 interface FormState {
@@ -28,7 +28,7 @@ export default function BookForm({ editId }: BookFormProps) {
     const dispatch = useDispatch();
     const nav = useNavigate();
     const editBookData = useSelector((s: RootState) =>
-        s.books.books.find(b => b._id.toString() === editId)
+        s.books.books.find(b => b._id == editId)
     );
 
     const [form, setForm] = useState<FormState>({
@@ -92,7 +92,8 @@ export default function BookForm({ editId }: BookFormProps) {
         }
 
         const payload = {
-            _id: editId ? Number(editId) : Math.floor(Math.random() * 10000),
+            _id: editId,
+            id: editId,
             title: form.title,
             authors: form.authors.split(',').map(a => a.trim()),
             longDescription: form.description,
@@ -111,13 +112,14 @@ export default function BookForm({ editId }: BookFormProps) {
             dispatch(addBook(payload));
         }
 
+
         nav('/');
     };
 
     const handleInputChange = (field: keyof FormState, value: string | number) => {
         setForm({ ...form, [field]: value });
 
-        // Clear error when user starts typing
+
         if (errors[field as keyof FormErrors]) {
             setErrors({ ...errors, [field]: undefined });
         }

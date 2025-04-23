@@ -33,12 +33,12 @@ const AdvancedSearch: React.FC = () => {
     const [searchParams] = useSearchParams();
     const books = useSelector((state: RootState) => state.books.books);
 
-    // Extract unique categories and authors from books
+
     const categories = Array.from(new Set(books.flatMap(book => book.categories)));
     const authors = Array.from(new Set(books.flatMap(book => book.authors)));
     const statuses = Array.from(new Set(books.map(book => book.status)));
 
-    // Initialize filters from query params if available
+
     const [filters, setFilters] = useState<SearchFilters>({
         title: searchParams.get('title') || '',
         author: searchParams.get('author') || '',
@@ -54,7 +54,7 @@ const AdvancedSearch: React.FC = () => {
     const [hasSearched, setHasSearched] = useState(false);
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
 
-    // Count active filters
+
     useEffect(() => {
         let count = 0;
         Object.values(filters).forEach(value => {
@@ -62,18 +62,18 @@ const AdvancedSearch: React.FC = () => {
         });
         setActiveFiltersCount(count);
 
-        // Auto-search if query params exist
+
         if (count > 0 && !hasSearched && searchParams.toString()) {
             handleSearch();
         }
     }, [filters, searchParams]);
 
-    // Update a specific filter
+
     const handleFilterChange = (field: keyof SearchFilters, value: string) => {
         setFilters(prev => ({ ...prev, [field]: value }));
     };
 
-    // Reset all filters
+
     const handleReset = () => {
         setFilters({
             title: '',
@@ -90,33 +90,33 @@ const AdvancedSearch: React.FC = () => {
         navigate('/advanced-search');
     };
 
-    // Perform search
+
     const handleSearch = () => {
-        // Build filter conditions
+
         const filteredBooks = books.filter(book => {
-            // Title filter
+
             if (filters.title && !book.title.toLowerCase().includes(filters.title.toLowerCase())) {
                 return false;
             }
 
-            // Author filter
+
             if (filters.author && !book.authors.some(author =>
                 author.toLowerCase().includes(filters.author.toLowerCase())
             )) {
                 return false;
             }
 
-            // Category filter
+
             if (filters.category && !book.categories.includes(filters.category)) {
                 return false;
             }
 
-            // Status filter
+
             if (filters.status && book.status !== filters.status) {
                 return false;
             }
 
-            // Publication year range
+
             if (book.publishedDate && book.publishedDate.$date) {
                 const publishYear = new Date(book.publishedDate.$date).getFullYear();
 
@@ -129,7 +129,7 @@ const AdvancedSearch: React.FC = () => {
                 }
             }
 
-            // Page count range
+
             if (filters.pageCountMin && book.pageCount < parseInt(filters.pageCountMin)) {
                 return false;
             }
@@ -144,7 +144,7 @@ const AdvancedSearch: React.FC = () => {
         setSearchResults(filteredBooks);
         setHasSearched(true);
 
-        // Update URL with search params
+
         const params = new URLSearchParams();
         Object.entries(filters).forEach(([key, value]) => {
             if (value) {
@@ -158,13 +158,13 @@ const AdvancedSearch: React.FC = () => {
         });
     };
 
-    // Handle search submission
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         handleSearch();
     };
 
-    // Navigate to book details
+
     const navigateToBook = (bookId: number) => {
         navigate(`/book/${bookId}`);
     };
@@ -327,7 +327,7 @@ const AdvancedSearch: React.FC = () => {
                 </Card.Body>
             </Card>
 
-            {/* Search Results Section */}
+            { }
             {hasSearched && (
                 <Card className="shadow-sm">
                     <Card.Header className="bg-light">
